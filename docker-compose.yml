@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: grouptheory-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://grouptheory:grouptheory_pass@db:5432/grouptheory
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:5173
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - grouptheory-network
+
+  celery_worker:
+    build: ./backend
+    container_name: grouptheory-celery
+    environment:
+      - DATABASE_URL=postgresql://grouptheory:grouptheory_pass@db:5432/grouptheory
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - ./backend:/app
+    command: celery -A app.tasks.celery_app worker --loglevel=info
+    networks:
+      - grouptheory-network
+
+  frontend:
+    build: ./frontend
+    container_name: grouptheory-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_WS_URL=ws://localhost:8000/ws
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host
+    networks:
+      - grouptheory-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: grouptheory-db
+    environment:
+      - POSTGRES_USER=grouptheory
+      - POSTGRES_PASSWORD=grouptheory_pass
+      - POSTGRES_DB=grouptheory
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - grouptheory-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: grouptheory-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - grouptheory-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  grouptheory-network:
+    driver: bridge
