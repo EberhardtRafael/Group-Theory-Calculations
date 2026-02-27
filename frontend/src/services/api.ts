@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 // Create axios instance
 export const apiClient = axios.create({
@@ -9,7 +9,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
 
 // API methods
 export const api = {
@@ -17,8 +17,7 @@ export const api = {
   createGroup: (name: string, notation: string = 'cartan') =>
     apiClient.post('/groups/create', { name, notation }),
 
-  getGroup: (groupId: string) =>
-    apiClient.get(`/groups/${groupId}`),
+  getGroup: (groupId: string) => apiClient.get(`/groups/${groupId}`),
 
   breakSymmetry: (groupId: string, nodeIndex: number, method: string = 'standard') =>
     apiClient.post(`/groups/${groupId}/break-symmetry`, { node_index: nodeIndex, method }),
@@ -31,9 +30,8 @@ export const api = {
     apiClient.post('/irreps/', { group_id: groupId, highest_weight: highestWeight, method }),
 
   // Calculations
-  submitCalculation: (operation: string, parameters: any) =>
+  submitCalculation: (operation: string, parameters: Record<string, unknown>) =>
     apiClient.post('/calculations/submit', { operation, parameters }),
 
-  getCalculationStatus: (taskId: string) =>
-    apiClient.get(`/calculations/${taskId}/status`),
-}
+  getCalculationStatus: (taskId: string) => apiClient.get(`/calculations/${taskId}/status`),
+};

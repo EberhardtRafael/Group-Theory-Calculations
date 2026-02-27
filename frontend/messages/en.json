@@ -1,0 +1,73 @@
+{
+  "header": {
+    "title": "Group Theory Calculator",
+    "nav": {
+      "home": "Home",
+      "calculator": "Calculator",
+      "github": "GitHub"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Group Theory Calculator",
+      "subtitle": "Interactive web tool for Lie algebra calculations and symmetry breaking in Grand Unified Theories. Zero installation required.",
+      "cta": "Start Calculating"
+    },
+    "features": {
+      "dynkin": {
+        "title": "Interactive Dynkin Diagrams",
+        "description": "Click nodes to break symmetry and visualize group decomposition in real-time"
+      },
+      "fast": {
+        "title": "Fast Computations",
+        "description": "Powered by SageMath for rapid tensor product decompositions and irrep construction"
+      },
+      "educational": {
+        "title": "Educational Focus",
+        "description": "Perfect for students learning GUTs and researchers needing quick calculations"
+      }
+    },
+    "example": {
+      "title": "Example: SO(10) GUT",
+      "description": "Breaking Grand Unified Theory SO(10) down to the Standard Model:",
+      "note": "The spinor 16 representation decomposes to Standard Model fermions"
+    },
+    "cta": {
+      "title": "Ready to explore?",
+      "description": "Start with simple SU(3) calculations or jump into GUT symmetry breaking",
+      "button": "Open Calculator"
+    }
+  },
+  "calculator": {
+    "title": "Group Theory Calculator",
+    "description": "Select a Lie group and compute tensor products, branching rules, and visualizations",
+    "selectGroup": "Select Group",
+    "tensorProduct": "Tensor Product",
+    "dynkinDiagram": "Dynkin Diagram",
+    "comingSoon": "Coming soon..."
+  },
+  "groups": {
+    "isospin": "Isospin",
+    "color": "Color",
+    "flavor": "Flavor",
+    "gut": "GUT",
+    "grandUnified": "Grand Unified",
+    "exceptionalE6": "Exceptional (rank 6)",
+    "exceptionalE7": "Exceptional (rank 7)",
+    "exceptionalE8": "Exceptional (rank 8)",
+    "exceptionalF4": "Exceptional (rank 4)",
+    "exceptionalG2": "Exceptional (rank 2)"
+  },
+  "tensorProduct": {
+    "firstIrrep": "First Irrep",
+    "secondIrrep": "Second Irrep",
+    "calculate": "Calculate Tensor Product",
+    "calculationFailed": "Calculation failed",
+    "result": "Result:",
+    "weight": "Weight",
+    "dimension": "Dimension"
+  },
+  "footer": {
+    "copyright": "© {year} Group Theory Calculator. Built with Next.js and SageMath."
+  }
+}

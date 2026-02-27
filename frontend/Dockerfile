@@ -11,8 +11,11 @@ RUN npm install
 # Copy application code
 COPY . .
 
+# Build Next.js app
+RUN npm run build
+
 # Expose port
 EXPOSE 3000
 
-# Run development server
-CMD ["npm", "run", "dev", "--", "--host"]
+# Run production server
+CMD ["npm", "start"]
