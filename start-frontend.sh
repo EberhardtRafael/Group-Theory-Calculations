@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "🎨 Group Theory Calculator - Frontend Quick Start"
-echo "================================================="
+echo "🎨 Group Theory Calculator - Next.js Frontend Quick Start"
+echo "=========================================================="
 echo ""
 
 # Check Node
@@ -20,7 +20,7 @@ if [ ! -f "PROJECT_SPEC.md" ]; then
 fi
 
 echo ""
-echo "📦 Setting up frontend..."
+echo "📦 Setting up Next.js frontend..."
 cd frontend
 
 # Install dependencies
@@ -38,7 +38,7 @@ if [ ! -f ".env" ]; then
 fi
 
 echo ""
-echo "🧪 Starting development server..."
+echo "🧪 Starting Next.js development server..."
 echo "  Once started:"
 echo "  - Frontend: http://localhost:3000"
 echo "  - Hot reload enabled"
