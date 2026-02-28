@@ -1,4 +1,20 @@
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
+import type {
+  GroupCreate,
+  GroupResponse,
+  LieAlgebraInfo,
+  RootSystemData,
+  DynkinDiagram,
+  IrrepCreate,
+  IrrepResponse,
+  TensorProductRequest,
+  TensorProductResponse,
+  WeightSystemVisualizationRequest,
+  WeightSystemVisualizationResponse,
+  CalculationSubmit,
+  CalculationStatus,
+  GroupListItem,
+} from '../types/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -13,25 +29,117 @@ export const apiClient = axios.create({
 
 // API methods
 export const api = {
-  // Groups
-  createGroup: (name: string, notation: string = 'cartan') =>
-    apiClient.post('/groups/create', { name, notation }),
+  // ============================================================================
+  // Groups API
+  // ============================================================================
 
-  getGroup: (groupId: string) => apiClient.get(`/groups/${groupId}`),
+  /**
+   * Create a new Lie group and get its properties
+   */
+  createGroup: (
+    name: string,
+    notation: 'cartan' | 'physicist' = 'cartan'
+  ): Promise<AxiosResponse<GroupResponse>> =>
+    apiClient.post<GroupResponse>('/groups/create', { name, notation }),
 
-  breakSymmetry: (groupId: string, nodeIndex: number, method: string = 'standard') =>
+  /**
+   * Get group details by name (e.g., 'SU3', 'A2', 'E6')
+   */
+  getGroup: (groupName: string): Promise<AxiosResponse<GroupResponse>> =>
+    apiClient.get<GroupResponse>(`/groups/${groupName}`),
+
+  /**
+   * List all available groups
+   */
+  listGroups: (skip = 0, limit = 100): Promise<AxiosResponse<GroupListItem[]>> =>
+    apiClient.get<GroupListItem[]>('/groups/', { params: { skip, limit } }),
+
+  /**
+   * Get detailed algebra information for a group
+   */
+  getGroupInfo: (groupName: string): Promise<AxiosResponse<LieAlgebraInfo>> =>
+    apiClient.get<LieAlgebraInfo>(`/groups/${groupName}/info`),
+
+  /**
+   * Get complete root system data for a group
+   */
+  getRootSystem: (groupName: string): Promise<AxiosResponse<RootSystemData>> =>
+    apiClient.get<RootSystemData>(`/groups/${groupName}/root-system`),
+
+  /**
+   * Get Dynkin diagram representation for a group
+   */
+  getDynkinDiagram: (groupName: string): Promise<AxiosResponse<DynkinDiagram>> =>
+    apiClient.get<DynkinDiagram>(`/groups/${groupName}/dynkin-diagram`),
+
+  /**
+   * Break symmetry by crossing out a Dynkin diagram node
+   */
+  breakSymmetry: (groupId: string, nodeIndex: number, method = 'standard') =>
     apiClient.post(`/groups/${groupId}/break-symmetry`, { node_index: nodeIndex, method }),
 
-  // Irreps
-  calculateTensorProduct: (group: string, irrep1: number[], irrep2: number[]) =>
-    apiClient.post('/irreps/tensor-product', { group, irrep1, irrep2 }),
+  // ============================================================================
+  // Irreps API
+  // ============================================================================
 
-  createIrrep: (groupId: string, highestWeight: number[], method: string = 'weyl_reflection') =>
-    apiClient.post('/irreps/', { group_id: groupId, highest_weight: highestWeight, method }),
+  /**
+   * Create an irreducible representation from highest weight
+   */
+  createIrrep: (data: IrrepCreate): Promise<AxiosResponse<IrrepResponse>> =>
+    apiClient.post<IrrepResponse>('/irreps/', data),
 
-  // Calculations
-  submitCalculation: (operation: string, parameters: Record<string, unknown>) =>
-    apiClient.post('/calculations/submit', { operation, parameters }),
+  /**
+   * Get irrep details by ID
+   */
+  getIrrep: (irrepId: string): Promise<AxiosResponse<IrrepResponse>> =>
+    apiClient.get<IrrepResponse>(`/irreps/${irrepId}`),
 
-  getCalculationStatus: (taskId: string) => apiClient.get(`/calculations/${taskId}/status`),
+  /**
+   * List irreps, optionally filtered by group
+   */
+  listIrreps: (groupId?: string, skip = 0, limit = 100): Promise<AxiosResponse<IrrepResponse[]>> =>
+    apiClient.get<IrrepResponse[]>('/irreps/', {
+      params: { group_id: groupId, skip, limit },
+    }),
+
+  /**
+   * Calculate tensor product decomposition
+   */
+  calculateTensorProduct: (
+    data: TensorProductRequest
+  ): Promise<AxiosResponse<TensorProductResponse>> =>
+    apiClient.post<TensorProductResponse>('/irreps/tensor-product', data),
+
+  /**
+   * Get weight system for multiplet diagram visualization
+   */
+  getWeightSystemVisualization: (
+    data: WeightSystemVisualizationRequest
+  ): Promise<AxiosResponse<WeightSystemVisualizationResponse>> =>
+    apiClient.post<WeightSystemVisualizationResponse>('/irreps/weight-system', data),
+
+  // ============================================================================
+  // Calculations API (for async heavy computations)
+  // ============================================================================
+
+  /**
+   * Submit a heavy calculation for async processing
+   */
+  submitCalculation: (
+    operation: string,
+    parameters: Record<string, unknown>
+  ): Promise<AxiosResponse<CalculationStatus>> =>
+    apiClient.post<CalculationStatus>('/calculations/submit', { operation, parameters }),
+
+  /**
+   * Get status of a submitted calculation
+   */
+  getCalculationStatus: (taskId: string): Promise<AxiosResponse<CalculationStatus>> =>
+    apiClient.get<CalculationStatus>(`/calculations/${taskId}/status`),
+
+  /**
+   * Cancel a running calculation
+   */
+  cancelCalculation: (taskId: string): Promise<AxiosResponse<void>> =>
+    apiClient.delete<void>(`/calculations/${taskId}`),
 };

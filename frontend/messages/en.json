@@ -4,6 +4,8 @@
     "nav": {
       "home": "Home",
       "calculator": "Calculator",
+      "examples": "Examples",
+      "dissertation": "Dissertation",
       "github": "GitHub"
     }
   },
@@ -46,6 +48,10 @@
     "dynkinDiagram": "Dynkin Diagram",
     "comingSoon": "Coming soon..."
   },
+  "examples": {
+    "title": "Famous Calculations in Particle Physics",
+    "subtitle": "Explore landmark calculations that shaped our understanding of fundamental particles and forces. Each example connects abstract group theory to real physics."
+  },
   "groups": {
     "isospin": "Isospin",
     "color": "Color",
@@ -69,5 +75,14 @@
   },
   "footer": {
     "copyright": "© {year} Group Theory Calculator. Built with Next.js and SageMath."
+  },
+  "dissertation": {
+    "title": "Dissertation",
+    "tableOfContents": "Table of Contents",
+    "aboutThisWork": "About This Work",
+    "quickLinks": "Quick Links",
+    "previousChapter": "Previous",
+    "nextChapter": "Next",
+    "backToContents": "Table of Contents"
   }
 }

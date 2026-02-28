@@ -7,6 +7,8 @@ import { useTranslations } from 'next-intl';
 const NAV_LINKS = [
   { href: '/', labelKey: 'nav.home' },
   { href: '/calculator', labelKey: 'nav.calculator' },
+  { href: '/examples', labelKey: 'nav.examples' },
+  { href: '/dissertation', labelKey: 'nav.dissertation' },
   {
     href: 'https://github.com/your-username/group-theory-calculator',
     labelKey: 'nav.github',

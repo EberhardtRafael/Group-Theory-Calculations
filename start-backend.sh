@@ -54,4 +54,4 @@ echo "  - Health: http://localhost:8000/health"
 echo ""
 
 # Start the server
-python -m uvicorn app.main:app --reload
+python3 -m uvicorn app.main:app --reload

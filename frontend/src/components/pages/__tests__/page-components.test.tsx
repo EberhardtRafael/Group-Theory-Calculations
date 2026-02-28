@@ -30,7 +30,7 @@ jest.mock('@/components/pages/home/CTASection', () => ({
 describe('Home Page', () => {
   it('renders all sections', () => {
     render(<Home />);
-    
+
     expect(screen.getByText('Hero Section')).toBeInTheDocument();
     expect(screen.getByText('Features Section')).toBeInTheDocument();
     expect(screen.getByText('Example Section')).toBeInTheDocument();

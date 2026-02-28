@@ -3,4 +3,7 @@ export { default as Button } from './Button';
 export { default as Card } from './Card';
 export { default as Icon } from './Icon';
 export { default as Input } from './Input';
+export { default as Math } from './Math';
+export { default as MathText } from './MathText';
+export { default as Modal } from './Modal';
 export { default as Radio } from './Radio';
