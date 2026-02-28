@@ -16,7 +16,7 @@ describe('GroupSelector Component', () => {
 
   it('renders all group options', () => {
     render(<GroupSelector groups={groups} value="" onChange={jest.fn()} />);
-    
+
     groups.forEach((group) => {
       expect(screen.getByText(group.label)).toBeInTheDocument();
     });
@@ -25,9 +25,9 @@ describe('GroupSelector Component', () => {
   it('calls onChange when group is selected', async () => {
     const handleChange = jest.fn();
     const user = userEvent.setup();
-    
+
     render(<GroupSelector groups={groups} value="" onChange={handleChange} />);
-    
+
     // This test will need adjustment based on actual GroupSelector implementation
     // Just showing the pattern
   });
@@ -47,7 +47,7 @@ describe('TensorProductCalc Component', () => {
   it('validates dynkin label inputs', async () => {
     const user = userEvent.setup();
     render(<TensorProductCalc />);
-    
+
     // Test input validation
     // This will need adjustment based on actual implementation
   });
@@ -55,7 +55,7 @@ describe('TensorProductCalc Component', () => {
   it('submits calculation request', async () => {
     const user = userEvent.setup();
     render(<TensorProductCalc />);
-    
+
     // Fill form and submit
     // Verify API call is made
     // This will need adjustment based on actual implementation

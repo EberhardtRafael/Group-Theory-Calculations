@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Icon from '@/components/ui/Icon';
+import { Math } from '@/components/ui';
 
 const ExampleSection = () => {
   const t = useTranslations('home.example');
@@ -10,19 +10,15 @@ const ExampleSection = () => {
     <div className="bg-white rounded-lg shadow-md p-8 my-16">
       <div className="text-3xl font-bold mb-4">{t('title')}</div>
       <p className="text-gray-700 mb-6">{t('description')}</p>
-      <div className="bg-gray-50 p-6 rounded font-mono text-sm">
-        <div className="mb-2">
-          <Icon name="SO(10)" /> <Icon name="arrow" /> <Icon name="SU(5)" /> <Icon name="tensor" />{' '}
-          <Icon name="U(1)" />
+      <div className="bg-gray-50 p-6 rounded text-lg">
+        <div className="mb-3">
+          <Math>SO(10) \to SU(5) \times U(1)</Math>
         </div>
-        <div className="mb-2 ml-8">
-          <Icon name="arrow" /> <Icon name="SU(3)" /> <Icon name="tensor" /> <Icon name="SU(2)" />{' '}
-          <Icon name="tensor" /> <Icon name="U(1)" /> <Icon name="tensor" /> <Icon name="U(1)" />
+        <div className="mb-3 ml-12">
+          <Math>\to SU(3) \times SU(2) \times U(1) \times U(1)</Math>
         </div>
-        <div className="ml-16">
-          <Icon name="arrow" /> <Icon name="SU(3)" /> <Icon name="tensor" /> <Icon name="SU(2)" />{' '}
-          <Icon name="tensor" /> <Icon name="U(1)" />
-          <Icon name="Y" />
+        <div className="ml-24">
+          <Math>\to SU(3) \times SU(2) \times U(1)_Y</Math>
         </div>
       </div>
       <p className="text-gray-600 mt-4 text-sm">{t('note')}</p>

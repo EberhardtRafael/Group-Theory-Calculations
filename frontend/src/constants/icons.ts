@@ -1,3 +1,17 @@
+/**
+ * @deprecated Use the <Math> component with LaTeX instead for mathematical notation.
+ *
+ * @example
+ * // Old (deprecated):
+ * import Icon from '@/components/ui/Icon';
+ * <Icon name="tensor" />
+ *
+ * // New (recommended):
+ * import { Math } from '@/components/ui';
+ * <Math>\otimes</Math>
+ *
+ * See: frontend/docs/latex-guide.md for full LaTeX usage guide
+ */
 export const MATH_ICONS = {
   // Arrows
   arrow: '→',

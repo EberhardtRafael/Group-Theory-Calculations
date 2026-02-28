@@ -6,13 +6,16 @@ This directory will contain shared, reusable UI components following a consisten
 
 ```
 ui/
+├── Alert.tsx           # Alert/notification component
 ├── Button.tsx          # Button variants (primary, secondary, outline, etc.)
 ├── Card.tsx            # Container component
+├── Icon.tsx            # Icon component with Lucide React
 ├── Input.tsx           # Form input component
-├── Select.tsx          # Dropdown select component
-├── Badge.tsx           # Label/badge component
-├── Spinner.tsx         # Loading indicator
-├── Alert.tsx           # Alert/notification component
+├── Math.tsx            # LaTeX formula renderer (KaTeX)
+├── Radio.tsx           # Radio button component
+├── Select.tsx          # Dropdown select component (coming soon)
+├── Badge.tsx           # Label/badge component (coming soon)
+├── Spinner.tsx         # Loading indicator (coming soon)
 └── index.ts            # Barrel export
 ```
 
@@ -41,6 +44,32 @@ interface CardProps {
 }
 ```
 
+### Math Component
+```typescript
+interface MathProps {
+  children: string        // LaTeX formula string
+  block?: boolean         // Display as block (centered) or inline
+  className?: string
+}
+```
+
+Renders LaTeX formulas using KaTeX. Use for mathematical notation throughout the site.
+
+**Examples:**
+```tsx
+// Inline math
+<Math>3 \otimes 3 = 6 \oplus \bar{3}</Math>
+
+// Block math (centered, display mode)
+<Math block>E = mc^2</Math>
+
+// Greek letters
+<Math>\alpha, \beta, \gamma</Math>
+
+// Representations
+<Math>\mathbf{3} \otimes \mathbf{\bar{3}} = \mathbf{8} \oplus \mathbf{1}</Math>
+```
+
 ## Usage Examples
 
 ```tsx
@@ -62,7 +91,26 @@ interface CardProps {
 <Card title="Title">
   <p>Content</p>
 </Card>
+
+// Instead of: raw LaTeX strings
+<div>3 \otimes 3 = 6 \oplus \bar{3}</div>
+
+// Use:
+<Math>3 \otimes 3 = 6 \oplus \bar{3}</Math>
 ```
+
+## LaTeX Symbols Reference
+
+Common symbols for group theory:
+
+| Symbol | LaTeX | Meaning |
+|--------|-------|---------|
+| ⊗ | `\otimes` | Tensor product |
+| ⊕ | `\oplus` | Direct sum |
+| 3̄ | `\bar{3}` | Conjugate representation |
+| α, β | `\alpha, \beta` | Greek letters |
+| **3** | `\mathbf{3}` | Bold representation |
+| ℂ, ℝ | `\mathbb{C}, \mathbb{R}` | Number sets |
 
 ## Coming Soon
 

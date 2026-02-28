@@ -17,10 +17,10 @@ describe('Button Component', () => {
   it('handles click events', async () => {
     const handleClick = jest.fn();
     const user = userEvent.setup();
-    
+
     render(<Button onClick={handleClick}>Click me</Button>);
     await user.click(screen.getByRole('button'));
-    
+
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
@@ -58,18 +58,12 @@ describe('Card Component', () => {
   });
 
   it('applies custom className', () => {
-    const { container } = render(
-      <Card className="custom-class">Content</Card>
-    );
+    const { container } = render(<Card className="custom-class">Content</Card>);
     expect(container.firstChild).toHaveClass('custom-class');
   });
 
   it('renders footer when provided', () => {
-    render(
-      <Card footer={<div>Footer content</div>}>
-        Card body
-      </Card>
-    );
+    render(<Card footer={<div>Footer content</div>}>Card body</Card>);
     expect(screen.getByText('Footer content')).toBeInTheDocument();
   });
 });
@@ -83,10 +77,10 @@ describe('Input Component', () => {
   it('handles value changes', async () => {
     const handleChange = jest.fn();
     const user = userEvent.setup();
-    
+
     render(<Input label="Test" onChange={handleChange} />);
     const input = screen.getByLabelText('Test');
-    
+
     await user.type(input, 'hello');
     expect(handleChange).toHaveBeenCalled();
   });
